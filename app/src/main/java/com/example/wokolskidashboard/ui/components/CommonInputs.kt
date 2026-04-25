@@ -1,14 +1,15 @@
 package com.example.wokulskidashboard.ui.components
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 
 
-
 @Composable
-fun WokulskiTextField(
+fun WokulskiTextField(  //funkcja jest komponentem UI
     value: String,
-    onChange: (String) -> Unit,
-    label: String
+    onChange: (String) -> Unit,  //przekazuje wartość po wpisaniu urzytkownika
+    label: String //etykieta
 ){
     TextField(
         value = value,
@@ -20,9 +21,9 @@ fun WokulskiTextField(
 @Composable
 fun WokulskiButton(
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit //funkcja wywoływana po kliknięciu
 ) {
-    Button(onClick = onClick){
-        Text(text)
+    Button(onClick = onClick){ //przekazujemy akcję kliknięcia
+        Text(text) //widoczny tekst
     }
 }
