@@ -29,6 +29,8 @@ fun IncomeForm(
     //stany pól
     var nazwa by remember { mutableStateOf("") }
     var kwota by remember { mutableStateOf("") }
+    var error by remember { mutableStateOf(false) }
+
 
     Column {
 
@@ -44,16 +46,35 @@ fun IncomeForm(
         WokulskiTextField(kwota, { kwota = it }, "Kwota")
         Text("")
 
+        if (error) {
+            Text(
+                text = "Nie wpisano danych! Wpisz nazwę i kwotę.",
+                color = Color.Red
+            )
+        }
+        if (nazwa.isNotBlank() && !nazwa.any { it.isLetter() }) {
+            Text(
+                text = "Nazwa nie może składać się tylko z cyfr",
+                color = Color.Red
+            )
+        }
+        if (kwota.isNotBlank() && kwota.toDoubleOrNull() == null) {
+            Text(
+                text = "Kwota musi być liczbą",
+                color = Color.Red
+            )
+        }
+
+
         Button(onClick = {
             val value = kwota.toDoubleOrNull()  //próba zamiany tekstu na liczbę/nie uda -> null
             // walidacja
-            if (nazwa.isNotBlank() && value != null && value > 0) {
-                //czy nazwa nie jest pusta, czy jest poprawna,czy wartość > 0,
+            if (nazwa.isNotBlank() && value != null && value > 0 && nazwa.any { it.isLetter() }) {
                 onAddIncome(nazwa, value) //wysyla dane do rodzica(state hoisting)
                 nazwa = ""
                 kwota = ""
-                //resetuje formularz po dodaniu danych
-            }
+                error = false
+            } else { error = true }
         },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
@@ -67,6 +88,7 @@ fun IncomeForm(
             fontWeight = FontWeight.Medium
         )
     } }
+
 }
 
 @Preview(showBackground = true)

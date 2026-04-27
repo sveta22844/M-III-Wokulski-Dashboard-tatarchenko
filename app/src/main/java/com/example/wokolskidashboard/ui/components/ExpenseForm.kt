@@ -27,12 +27,15 @@ import com.example.wokolskidashboard.ui.components.IncomeForm
 
 @Composable //funkcja UI w Compose
 fun ExpenseForm(
-    onAddExpense: (String, Double) -> Unit //funkcja z rodzica
+    onAddExpense: (String, Double, Boolean, Boolean) -> Unit //funkcja z rodzica
 ) {
     //stany pol
     var nazwa by remember { mutableStateOf("") }
     var kwota by remember { mutableStateOf("") }
-    var isExpense by remember { mutableStateOf(false) }
+    var isExpense by remember { mutableStateOf(true) }
+    var error by remember { mutableStateOf(false) }
+    var isUnnecessary by remember { mutableStateOf(false) }
+
 
     Column {
 
@@ -55,36 +58,55 @@ fun ExpenseForm(
         ) {
             Text(
                 text = "Zbyteczny",
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Normal,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 9.dp)
+                fontSize = 17.sp
             )
 
             Switch(
-                checked = isExpense,
-                onCheckedChange = { isExpense = it },
+                checked = isUnnecessary,
+                onCheckedChange = { isUnnecessary = it },
 
                 colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White, // kółko gdy ON
-                    checkedTrackColor = Color(0xFFD9534F), // tło gdy ON (czerwony)
-                    uncheckedThumbColor = Color.White, // kółko gdy OFF
-                    uncheckedTrackColor = Color.LightGray // tło gdy OFF
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = Color(0xFFD9534F),
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = Color.LightGray
                 )
             )
         }
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        if (nazwa.isNotBlank() && !nazwa.any { it.isLetter() }) {
+            Text(
+                text = "Nazwa nie może składać się tylko z cyfr",
+                color = Color.Red
+            )
+        }
+        if (kwota.isNotBlank() && kwota.toDoubleOrNull() == null) {
+            Text(
+                text = "Kwota musi być liczbą",
+                color = Color.Red
+            )
+        }
+        if (error) {
+            Text(
+                text = "Nie wpisano danych! Wpisz nazwę i kwotę.",
+                color = Color.Red
+            )
+        }
+
         Button(
             onClick = {
-                val value = kwota.toDoubleOrNull()
-                if (nazwa.isNotBlank() && value != null && value > 0) {
-                    onAddExpense(nazwa, value)
+                var value = kwota.toDoubleOrNull()
+                //walidacja
+                if (nazwa.isNotBlank() && value != null && value > 0 && nazwa.any { it.isLetter() }) {
+                    onAddExpense(nazwa, value, isExpense, isUnnecessary)
                     nazwa = ""
                     kwota = ""
-                }
+
+                    isUnnecessary = false
+                    error = false
+                } else { error = true }
             },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
@@ -99,9 +121,3 @@ fun ExpenseForm(
         } }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun ExpenseFormPreview() {
-    ExpenseForm(onAddExpense = { _, _ -> })
-}

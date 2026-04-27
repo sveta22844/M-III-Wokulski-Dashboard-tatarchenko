@@ -21,6 +21,11 @@ fun TransactionCard(transaction: Transaction) {
     //видатек червоний колір  przychód синій колір
     val color = if (transaction.isExpense) Color.Red else Color(0xFF0C9396)
 
+    val label = when {
+        !transaction.isExpense -> "PRZYCHÓD"
+        transaction.isExpense && transaction.isUnnecessary -> "ZBYTECZNY WYDATEK"
+        else -> "WYDATEK" }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,7 +37,7 @@ fun TransactionCard(transaction: Transaction) {
         ) {
 
             Text(
-                text = transaction.nazwa,  //wyświetla
+                text = "$label: ${transaction.nazwa}",  //wyświetla
                 fontWeight = FontWeight.Medium
             )
 
@@ -46,8 +51,3 @@ fun TransactionCard(transaction: Transaction) {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun TransactionCardPreview() {
-    TransactionCard(transaction = Transaction("Przychód", 100.0, false))
-}
