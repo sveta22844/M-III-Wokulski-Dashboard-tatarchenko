@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Switch
@@ -54,8 +55,11 @@ fun ExpenseForm(
         ) {
             Text(
                 text = "Zbyteczny",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 9.dp)
             )
 
             Switch(
