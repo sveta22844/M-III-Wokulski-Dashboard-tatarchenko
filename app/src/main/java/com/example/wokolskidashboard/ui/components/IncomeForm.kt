@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wokulskidashboard.ui.components.WokulskiButton
 import com.example.wokulskidashboard.ui.components.WokulskiTextField
 
-
 @Composable
 fun IncomeForm(
     onAddIncome: (String, Double) -> Unit //funkcjia przekazania z gory/przekazuje nazwe i kwote do rodzica
@@ -67,8 +66,7 @@ fun IncomeForm(
             fontSize = 20.sp,
             fontWeight = FontWeight.Medium
         )
-    }
-    }
+    } }
 }
 
 @Preview(showBackground = true)

@@ -11,7 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.wokolskidashboard.ui.components.IncomeForm
 import com.example.wokolskidashboard.ui.theme.WokolskiDashBoardTheme
+import com.example.wokulskidashboard.ui.MainScreen
+import com.example.wokulskidashboard.ui.components.BalanceHeader
+import com.example.wokulskidashboard.ui.components.ExpenseForm
+import com.example.wokulskidashboard.ui.components.WokulskiButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +26,7 @@ class MainActivity : ComponentActivity() {
             WokolskiDashBoardTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "A",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -42,6 +47,12 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     WokolskiDashBoardTheme {
-        Greeting("Android")
+
+//        WokulskiButton(onClick = {}, text = "Dodaj")
+//        BalanceHeader(balance = 100.9)
+//        MainScreen()
+//        IncomeForm(onAddIncome = { _, _ -> })
+//        ExpenseForm(onAddExpense = { _, _ -> })
+
     }
 }

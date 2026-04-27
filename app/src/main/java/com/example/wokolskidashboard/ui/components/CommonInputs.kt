@@ -1,11 +1,11 @@
 package com.example.wokulskidashboard.ui.components
+
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.wokulskidashboard.ui.MainScreen
-
 
 @Composable
 fun WokulskiTextField(  //funkcja jest komponentem UI
