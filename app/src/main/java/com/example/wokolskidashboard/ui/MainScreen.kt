@@ -1,6 +1,9 @@
 package com.example.wokulskidashboard.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -10,11 +13,12 @@ import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
 import com.example.wokolskidashboard.ui.components.IncomeForm
 import com.example.wokulskidashboard.ui.components.BalanceHeader
+import com.example.wokulskidashboard.ui.components.ExpenseForm
 
 @Composable
 fun MainScreen() { //buduje UI w Compose
 
-    //główny stan/lista transakcji
+    //główny stan/lista transakcji (przechowuje dane,odswierza IU po zmianie)
     val transactions = remember { mutableStateListOf<Transaction>() }
 
     //liczenie salda na podstawie transakcjii
@@ -22,8 +26,24 @@ fun MainScreen() { //buduje UI w Compose
         if (it.isExpense) -it.kwota else it.kwota //if wydatek -kwota alse +kwote
     }
 
+    //lączenie niektórych komponentów
     Column(modifier = Modifier.padding(16.dp)) {
-        BalanceHeader(balance) //wyświetlenie przez komponent dla nagłowka
+
+        BalanceHeader(balance)  //баланс
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        //przychody
+        IncomeForm { nazwa, kwota ->
+            transactions.add(Transaction(nazwa, kwota, false)) //dodanie do listy dochod(false = nieWydatek)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        //wydatki
+        ExpenseForm { nazwa, kwota ->
+            transactions.add(Transaction( nazwa, kwota, true)) //dodanie do listy wydatek(true = wydatek)
+        }
     }
 }
 
