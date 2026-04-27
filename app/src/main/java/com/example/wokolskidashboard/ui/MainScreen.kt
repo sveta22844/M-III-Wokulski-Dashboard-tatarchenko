@@ -5,8 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
+import com.example.wokolskidashboard.ui.components.IncomeForm
 import com.example.wokulskidashboard.ui.components.BalanceHeader
 
 @Composable
@@ -23,4 +25,10 @@ fun MainScreen() { //buduje UI w Compose
     Column(modifier = Modifier.padding(16.dp)) {
         BalanceHeader(balance) //wyświetlenie przez komponent dla nagłowka
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    MainScreen()
 }
