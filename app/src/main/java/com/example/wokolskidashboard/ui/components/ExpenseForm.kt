@@ -27,7 +27,7 @@ import com.example.wokolskidashboard.ui.components.IncomeForm
 
 @Composable //funkcja UI w Compose
 fun ExpenseForm(
-    onAddExpense: (String, Double, Boolean, Boolean) -> Unit //funkcja z rodzica
+    onAddExpense: (String, Double, Boolean, Boolean) -> Unit //CallBack
 ) {
     //stany pol
     var nazwa by remember { mutableStateOf("") }
@@ -35,7 +35,6 @@ fun ExpenseForm(
     var isExpense by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf(false) }
     var isUnnecessary by remember { mutableStateOf(false) }
-
 
     Column {
 
@@ -50,7 +49,7 @@ fun ExpenseForm(
         WokulskiTextField(nazwa, { nazwa = it }, "Nazwa")
         WokulskiTextField(kwota, { kwota = it }, "Kwota")
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(15.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -74,7 +73,7 @@ fun ExpenseForm(
             )
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(5.dp))
 
         if (nazwa.isNotBlank() && !nazwa.any { it.isLetter() }) {
             Text(
@@ -100,7 +99,7 @@ fun ExpenseForm(
                 var value = kwota.toDoubleOrNull()
                 //walidacja
                 if (nazwa.isNotBlank() && value != null && value > 0 && nazwa.any { it.isLetter() }) {
-                    onAddExpense(nazwa, value, isExpense, isUnnecessary)
+                    onAddExpense(nazwa, value, isExpense, isUnnecessary) //wywolanie z gory
                     nazwa = ""
                     kwota = ""
 
@@ -121,3 +120,8 @@ fun ExpenseForm(
         } }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ExpensePreview() {
+    ExpenseForm(onAddExpense = { _, _, _, _ -> })
+}

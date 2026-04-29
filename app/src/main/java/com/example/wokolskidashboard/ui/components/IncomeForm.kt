@@ -24,13 +24,11 @@ import com.example.wokulskidashboard.ui.components.WokulskiTextField
 
 @Composable
 fun IncomeForm(
-    onAddIncome: (String, Double) -> Unit //funkcjia przekazania z gory/przekazuje nazwe i kwote do rodzica
+    onAddIncome: (String, Double) -> Unit //funkcjia przekazania z gory CallBack
 ){
-    //stany pól
-    var nazwa by remember { mutableStateOf("") }
+    var nazwa by remember { mutableStateOf("") }  //стани пул
     var kwota by remember { mutableStateOf("") }
     var error by remember { mutableStateOf(false) }
-
 
     Column {
 
@@ -46,12 +44,6 @@ fun IncomeForm(
         WokulskiTextField(kwota, { kwota = it }, "Kwota")
         Text("")
 
-        if (error) {
-            Text(
-                text = "Nie wpisano danych! Wpisz nazwę i kwotę.",
-                color = Color.Red
-            )
-        }
         if (nazwa.isNotBlank() && !nazwa.any { it.isLetter() }) {
             Text(
                 text = "Nazwa nie może składać się tylko z cyfr",
@@ -61,6 +53,12 @@ fun IncomeForm(
         if (kwota.isNotBlank() && kwota.toDoubleOrNull() == null) {
             Text(
                 text = "Kwota musi być liczbą",
+                color = Color.Red
+            )
+        }
+        if (error) {
+            Text(
+                text = "Nie wpisano danych! Wpisz nazwę i kwotę.",
                 color = Color.Red
             )
         }

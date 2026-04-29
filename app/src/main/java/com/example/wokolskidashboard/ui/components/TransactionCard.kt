@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wokolskidashboard.model.Transaction
+import com.example.wokolskidashboard.ui.components.IncomeForm
 import com.example.wokulskidashboard.ui.MainScreen
 
 @Composable
@@ -49,5 +50,15 @@ fun TransactionCard(transaction: Transaction) {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun TransactionCardPreview() {
+    TransactionCard(transaction = Transaction("ksiązka", 100.0, false, false)) //przychod
+//    TransactionCard(transaction = Transaction("ksiązka", 100.0, true, false)) //wydatek
+//    TransactionCard(transaction = Transaction("ksiązka", 100.0, true, true)) //zbyteczny wydatek
+}
+
+
 
 
