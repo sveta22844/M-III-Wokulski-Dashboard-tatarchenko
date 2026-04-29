@@ -11,7 +11,7 @@ import com.example.wokulskidashboard.ui.MainScreen
 fun BalanceHeader(balance: Double) {
     //wyświetlanie tekstu z saldem
     Text(
-        text = "Saldo: %.2f zł".format(balance), //%.2f liczba z 2 miejsca po przecinku
+        text = "Saldo: %.2f ₽".format(balance), //%.2f liczba z 2 miejsca po przecinku
         style = MaterialTheme.typography.headlineMedium //styl tekstu
     )
 }

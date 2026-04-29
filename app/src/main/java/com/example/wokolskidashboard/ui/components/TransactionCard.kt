@@ -42,7 +42,7 @@ fun TransactionCard(transaction: Transaction) {
             )
 
             Text(
-                text = " ${transaction.kwota} zł", //wyświetla
+                text = " ${transaction.kwota} ₽", //wyświetla
                 color = color,
                 fontWeight = FontWeight.Bold
             )
